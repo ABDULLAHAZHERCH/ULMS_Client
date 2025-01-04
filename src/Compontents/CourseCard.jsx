@@ -21,15 +21,13 @@ function CourseCard({data}){
                         {data?.description}
                     </p>
                     <p className=" font-semibold">
-                        <span className=" text-yellow-500  font-bold">Category :</span>
                         {data?.category}
                     </p>
                     {/* <p className=" font-semibold">
                         <span className=" text-yellow-500  font-bold">Total lectures :</span>
                         {data?.numberoflectures}
                     </p> */}
-                    <p className=" font-semibold">
-                        <span className=" text-yellow-500  font-bold">Instructor :</span>
+                    <p className=" text-yellow-500  font-bold">
                         {data?.createdBy}
                     </p>
                 </div>
