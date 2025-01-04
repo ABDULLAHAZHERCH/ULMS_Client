@@ -4,9 +4,9 @@ import toast from "react-hot-toast";
 import axiosInstance from "../../Helpers/axiosinstance";
 
 const initialState = {
-  isLoggedIn : localStorage.getItem('isLoggedIn')|| false,
-  role:localStorage.getItem('role')|| "" ,
-  data: JSON.parse(localStorage.getItem("data")) || {}
+  isLoggedIn: localStorage.getItem("isLoggedIn") || false,
+  role: localStorage.getItem("role") || "",
+  data: JSON.parse(localStorage.getItem("data")) || {},
 };
 
 export const creatAccount = createAsyncThunk("/auth/singup", async (data) => {
