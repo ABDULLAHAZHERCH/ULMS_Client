@@ -1,8 +1,7 @@
-
 import toast from "react-hot-toast";
 import {useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
 import HomeLayout from "../../Layouts/HomeLayout";
 import { getuserData } from "../../Redux/Slices/AuthSlice";
 import { cancelCourseBundle } from "../../Redux/Slices/RazorpaySlice";
@@ -13,6 +12,13 @@ function Profile(){
     const dispatch = useDispatch();
     const navigate=useNavigate();
 
+    useEffect(() => {
+        const fetchData = async () => {
+            await dispatch(getuserData());
+            setIsLoading(false); 
+        };
+        fetchData();
+    }, [dispatch]);
 
      async function handleCancelation() {
         if(window.confirm("Are you Sure Want  Cancel Subscription ?")){

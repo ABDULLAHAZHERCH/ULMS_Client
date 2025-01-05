@@ -11,13 +11,16 @@ const initialState = {
 
 export const creatAccount = createAsyncThunk("/auth/singup", async (data) => {
   try {
-    const res = axiosInstance.post("user/register", data);
+    const res = axiosInstance.post("user/register", data, { headers: {
+      'Content-Type': 'multipart/form-data',
+    }});
+
     toast.promise(res, {
       loading: "wait creating your account",
       success: (data) => {
         return data?.data?.message;
       },
-      error: "Failed in create accounthg",
+      error: "Failed to create account",
     });
     return (await res).data;
   } catch (error) {
@@ -61,7 +64,9 @@ export const updateProfile = createAsyncThunk(
   "/user/update/profile",
   async (data) => {
     try {
-      const res = axiosInstance.put(`user/update`, data);
+      const res = axiosInstance.put(`user/update`, data, { headers: {
+        'Content-Type': 'multipart/form-data',
+      }});
       toast.promise(res, {
         loading: "wait profile update in process..... ",
         success: (data) => {
@@ -78,8 +83,8 @@ export const updateProfile = createAsyncThunk(
 
 export const getuserData = createAsyncThunk("/user/details", async () => {
   try {
-    const res = axiosInstance.get("user/me");
-    return (await res).data;
+    const res = await axiosInstance.get("user/me");
+    return res.data;
   } catch (error) {
     toast.error(error?.message);
   }
@@ -172,14 +177,16 @@ const authSlice = createSlice({
         state.role = "";
       })
       .addCase(getuserData.fulfilled, (state, action) => {
-        if (action?.payload?.user) return;
+        if (!action?.payload?.user) return; 
+    
         localStorage.setItem("data", JSON.stringify(action?.payload?.user));
         localStorage.setItem("isLoggedIn", true);
         localStorage.setItem("role", action?.payload?.user?.role);
+    
         state.isLoggedIn = true;
         state.data = action?.payload?.user;
         state.role = action?.payload?.user?.role;
-      });
+    });
   },
 });
 

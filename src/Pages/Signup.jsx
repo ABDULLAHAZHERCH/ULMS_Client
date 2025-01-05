@@ -32,7 +32,7 @@ function Signup() {
   function getImage(event) {
     event.preventDefault();
 
-    //getting image
+    //getting the first selected image file
     const uploadedImage = event.target.files[0];
 
     if (uploadedImage) {
@@ -40,6 +40,7 @@ function Signup() {
         ...signupData,
         avatar: uploadedImage,
       });
+
       const fileReader = new FileReader();
       fileReader.readAsDataURL(uploadedImage);
       fileReader.addEventListener("load", function () {
@@ -99,6 +100,8 @@ function Signup() {
       });
       setPrevImage("");
     }
+    //dispatch create account action
+    
   }
   return (
     <HomeLayout>
